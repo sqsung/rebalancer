@@ -9,5 +9,8 @@
     "paths": {
       "@/*": ["./src/*"]
     }
+  },
+  "preferences": {
+    "importModuleSpecifier": "non-relative"
   }
 }
