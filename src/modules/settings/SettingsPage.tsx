@@ -1,4 +1,4 @@
-import OutletWrapper from "@/modules/shared/OutletWrapper";
+import { OutletWrapper } from "@/modules/shared/OutletWrapper";
 
 export const SettingsPage = () => {
   return (
