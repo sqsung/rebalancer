@@ -11,6 +11,8 @@ declare global {
 
   type Path = (typeof PATHS)[keyof typeof PATHS];
 
+  type PortfolioByGroup = Record<PortfolioCategory, Portfolio>;
+
   interface Holding {
     name: string;
     description: string;
