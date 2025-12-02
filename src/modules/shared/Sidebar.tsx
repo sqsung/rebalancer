@@ -18,7 +18,7 @@ export const Sidebar = () => {
   };
 
   return (
-    <div className="flex flex-col gap-3 bg-white p-3">
+    <div className="flex flex-col gap-3 p-3">
       <h1 className="text-2xl font-bold tracking-wide">PF/RB</h1>
       {BUTTONS.map((button) => {
         const isActive = button.path === pathname;
@@ -31,7 +31,7 @@ export const Sidebar = () => {
             className={clsx(
               "w-52 justify-start",
               isActive
-                ? "bg-zinc-200 text-black hover:bg-zinc-300 active:bg-zinc-300"
+                ? "bg-zinc-200 text-black hover:bg-zinc-200 active:bg-zinc-200"
                 : "variant-ghost hover:bg-zinc-100",
             )}
           >

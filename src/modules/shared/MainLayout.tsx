@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 
 export const MainLayout = () => {
   return (
-    <div className="flex h-full min-h-screen">
+    <div className="flex h-full min-h-screen bg-zinc-100">
       <Sidebar />
       <Outlet />
     </div>
