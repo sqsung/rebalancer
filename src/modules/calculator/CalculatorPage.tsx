@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { usePortfolio } from "@/context/PortfolioContext";
 import { Table, TableBody, TableFooter } from "@/ui";
+import { OutletWrapper } from "@/modules/shared";
 import { TableRow, Classifier, TableHeader } from "@/modules/calculator";
-import OutletWrapper from "@/layout/OutletWrapper";
 
 export const CalculatorPage = () => {
   const { portfolio } = usePortfolio();

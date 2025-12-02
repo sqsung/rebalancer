@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import MainLayout from "@/layout/MainLayout";
+import { MainLayout } from "@/modules/shared";
 import { CalculatorPage } from "@/modules/calculator";
 import { SettingsPage } from "@/modules/settings";
 import { PATHS } from "@/constants";

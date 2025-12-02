@@ -1,7 +1,7 @@
-import { Sidebar } from "@/modules/calculator";
+import { Sidebar } from "@/modules/shared";
 import { Outlet } from "react-router-dom";
 
-const MainLayout = () => {
+export const MainLayout = () => {
   return (
     <div className="flex h-full min-h-screen">
       <Sidebar />
@@ -9,5 +9,3 @@ const MainLayout = () => {
     </div>
   );
 };
-
-export default MainLayout;
