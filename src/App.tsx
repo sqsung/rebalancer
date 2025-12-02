@@ -3,39 +3,11 @@ import TableRow from "./components/TableRow";
 import Sidebar from "./components/Sidebar";
 import TableHeader from "./components/TableHeader";
 import { Table, TableBody, TableFooter } from "./components/ui/table";
-
-const PORTFOLIO = [
-  {
-    name: "미국 주식 (UH)",
-    description: "(TIGER 미국배당다우존스)",
-  },
-  {
-    name: "한국 주식",
-    description: "(KODEX 200)",
-  },
-  {
-    name: "금 (UH)",
-    description: "(ACE KRX금현물)",
-  },
-  {
-    name: "리츠",
-    description: "(TIGER 리츠부동산인프라)",
-  },
-  {
-    name: "미국채 10년 (UH)",
-    description: "(KODEX 미국10년국채선물)",
-  },
-  {
-    name: "현금성자산",
-    description: "(TIGER KOFR금리액티브(합성))",
-  },
-  {
-    name: "예수금",
-    description: "(금액만 입력)",
-  },
-];
+import { usePortfolio } from "./components/context/PortfolioContext";
 
 const App = () => {
+  const { portfolio } = usePortfolio();
+
   return (
     <div className="flex h-full min-h-screen">
       <Sidebar />
@@ -45,7 +17,7 @@ const App = () => {
           <Table className="flex h-full w-full flex-col">
             <TableHeader />
             <TableBody className="flex h-full flex-col bg-white">
-              {PORTFOLIO.map((item) => (
+              {portfolio.map((item) => (
                 <TableRow
                   key={item.description}
                   name={item.name}
