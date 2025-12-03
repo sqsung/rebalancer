@@ -1,10 +1,11 @@
 import { Button } from "@/modules/ui";
 import { cn } from "@/utils";
+import { Trash } from "lucide-react";
 
 const DeleteButton = () => {
   return (
     <Button variant="ghost" className="ml-auto flex items-center gap-3">
-      삭제
+      <Trash className="text-zinc-500" />
     </Button>
   );
 };
