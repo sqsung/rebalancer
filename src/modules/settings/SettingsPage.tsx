@@ -1,5 +1,4 @@
 import clsx from "clsx";
-import { ArrowRightIcon } from "lucide-react";
 import { CATEGORIES } from "@/constants";
 import { usePortfolio } from "@/context/PortfolioContext";
 import { OutletWrapper } from "@/modules/shared/OutletWrapper";
@@ -41,16 +40,24 @@ export const SettingsPage = () => {
                         )}
                       >
                         <div className="flex flex-col">
-                          <div className="flex items-center gap-1">
-                            <span className="font-bold">{holding.name}</span>
-                            <ArrowRightIcon size={16} />
-                            <span className="text-zinc-500">
-                              안정: {holding.stable}%, 성장: {holding.growth}%
-                            </span>
-                          </div>
+                          <span className="font-bold">{holding.name}</span>
                           <span className="text-zinc-500">
                             {holding.description}
                           </span>
+                          <div className="mt-3 flex gap-3">
+                            <div className="flex gap-1 text-zinc-500">
+                              <span>안전</span>
+                              <span className="font-bold text-orange-500">
+                                {holding.stable}%
+                              </span>
+                            </div>
+                            <div className="flex gap-1 text-zinc-500">
+                              <span>성장</span>
+                              <span className="font-bold text-orange-500">
+                                {holding.growth}%
+                              </span>
+                            </div>
+                          </div>
                         </div>
 
                         <Button className="ml-auto flex items-center gap-3">
