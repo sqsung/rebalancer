@@ -52,7 +52,7 @@ export const AddHoldingButton = () => {
     });
 
     form.reset();
-    openDialog();
+    closeDialog();
 
     const categoryInKorean = CATEGORIES[values.category];
 
