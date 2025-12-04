@@ -1,6 +1,10 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { holdingSchema, type HoldingSchema } from "@/schema/holding.schema";
+import { usePortfolio } from "@/context/PortfolioContext";
+import { CATEGORIES } from "@/constants";
+import { useToggle } from "@/hooks";
+import { toast } from "sonner";
 import {
   Dialog,
   DialogTrigger,
@@ -23,14 +27,10 @@ import {
   SelectItem,
   SelectValue,
 } from "@/ui";
-import { useState } from "react";
-import { usePortfolio } from "@/context/PortfolioContext";
-import { toast } from "sonner";
-import { CATEGORIES } from "@/constants";
 
 export const AddHoldingButton = () => {
   const { addHolding } = usePortfolio();
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isDialogOpen, [openDialog, closeDialog]] = useToggle();
 
   const form = useForm<HoldingSchema>({
     resolver: zodResolver(holdingSchema),
@@ -52,7 +52,7 @@ export const AddHoldingButton = () => {
     });
 
     form.reset();
-    setIsDialogOpen(false);
+    openDialog();
 
     const categoryInKorean = CATEGORIES[values.category];
 
@@ -70,16 +70,13 @@ export const AddHoldingButton = () => {
       open={isDialogOpen}
       onOpenChange={(open) => {
         if (!open) {
-          setIsDialogOpen(false);
+          closeDialog();
           form.clearErrors();
         }
       }}
     >
       <DialogTrigger asChild>
-        <Button
-          onClick={() => setIsDialogOpen(true)}
-          className="ml-auto flex gap-1"
-        >
+        <Button onClick={openDialog} className="ml-auto flex gap-1">
           추가하기
         </Button>
       </DialogTrigger>
@@ -184,11 +181,7 @@ export const AddHoldingButton = () => {
               )}
             />
             <DialogFooter>
-              <Button
-                onClick={() => setIsDialogOpen(false)}
-                type="button"
-                variant="outline"
-              >
+              <Button onClick={closeDialog} type="button" variant="outline">
                 취소
               </Button>
               <Button type="submit">저장</Button>

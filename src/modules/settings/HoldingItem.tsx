@@ -1,10 +1,10 @@
-import { useState } from "react";
 import { Trash } from "lucide-react";
 import { usePortfolio } from "@/context/PortfolioContext";
 import { ConfirmDialog } from "@/modules/shared/ConfirmDialog";
 import { Button, Dialog, DialogTrigger } from "@/modules/ui";
 import { toast } from "sonner";
 import { cn } from "@/utils";
+import { useToggle } from "@/hooks";
 
 interface DeleteHoldingButtonProps {
   name: string;
@@ -12,7 +12,7 @@ interface DeleteHoldingButtonProps {
 
 const DeleteHoldingButton = ({ name }: DeleteHoldingButtonProps) => {
   const { deleteHolding } = usePortfolio();
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isDialogOpen, [openDialog, closeDialog]] = useToggle();
 
   const onDelete = () => {
     deleteHolding(name);
@@ -26,10 +26,17 @@ const DeleteHoldingButton = ({ name }: DeleteHoldingButtonProps) => {
   };
 
   return (
-    <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+    <Dialog
+      open={isDialogOpen}
+      onOpenChange={(open) => {
+        if (!open) {
+          closeDialog();
+        }
+      }}
+    >
       <DialogTrigger asChild={true}>
         <Button
-          onClick={() => setIsDialogOpen(true)}
+          onClick={openDialog}
           variant="ghost"
           className="ml-auto flex items-center gap-3"
         >
@@ -41,7 +48,7 @@ const DeleteHoldingButton = ({ name }: DeleteHoldingButtonProps) => {
         isDestructive={true}
         confirmMessage="삭제"
         subtitle={"정말 삭제하시겠습니까?\n삭제한 데이터는 복원할 수 없습니다."}
-        onCancel={() => setIsDialogOpen(false)}
+        onCancel={closeDialog}
         onConfirm={onDelete}
       />
     </Dialog>
