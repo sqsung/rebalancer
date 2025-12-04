@@ -13,6 +13,8 @@ declare global {
 
   type PortfolioByGroup = Record<PortfolioCategory, Portfolio>;
 
+  type PercentageType = "growth" | "stable";
+
   interface Holding {
     name: string;
     description: string;

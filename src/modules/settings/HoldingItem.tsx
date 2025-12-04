@@ -56,7 +56,7 @@ const DeleteHoldingButton = ({ name }: DeleteHoldingButtonProps) => {
 };
 
 interface PercentageProps {
-  variant: "growth" | "stable";
+  variant: PercentageType;
   percentage: number;
 }
 
