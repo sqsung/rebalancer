@@ -93,9 +93,9 @@ export const AddHoldingButton = () => {
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>포트폴리오 항목 추가</DialogTitle>
+          <DialogTitle>자산군 추가</DialogTitle>
           <DialogDescription>
-            새로운 항목에 대한 정보를 입력해 주세요.
+            새로운 자산군에 대한 정보를 입력해 주세요.
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
