@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { holdingSchema, type HoldingSchema } from "@/schema/holding.schema";
 import { usePortfolio } from "@/context/PortfolioContext";
 import { CATEGORIES } from "@/constants";
@@ -27,9 +27,10 @@ import {
   SelectItem,
   SelectValue,
 } from "@/ui";
+import { getPercentagesByCategory } from "@/utils";
 
 export const AddHoldingButton = () => {
-  const { addHolding } = usePortfolio();
+  const { portfolio, addHolding } = usePortfolio();
   const [isDialogOpen, [openDialog, closeDialog]] = useToggle();
 
   const form = useForm<HoldingSchema>({
@@ -42,6 +43,16 @@ export const AddHoldingButton = () => {
       category: "stocks",
     },
   });
+
+  const selectedCategory = useWatch({
+    control: form.control,
+    name: "category",
+  });
+
+  const { stable, growth } = getPercentagesByCategory(
+    portfolio,
+    selectedCategory,
+  );
 
   const onSubmit = (values: HoldingSchema) => {
     addHolding({
@@ -89,6 +100,7 @@ export const AddHoldingButton = () => {
         </DialogHeader>
         <Form {...form}>
           <form
+            noValidate={true}
             className="flex flex-col gap-5 py-5"
             onSubmit={form.handleSubmit(onSubmit)}
           >
@@ -149,13 +161,24 @@ export const AddHoldingButton = () => {
               name="stable"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>안정형(%)</FormLabel>
+                  <FormLabel className="flex items-center justify-between">
+                    <span>안정형 %</span>
+                    <span className="text-zinc-500">가능: {100 - stable}%</span>
+                  </FormLabel>
                   <FormControl>
                     <Input
                       type="number"
+                      max={100 - stable}
                       {...field}
-                      onChange={(event) => field.onChange(+event.target.value)}
-                      className="w-1/2"
+                      onChange={(event) => {
+                        const value = +event.target.value;
+
+                        if (value > 100 - stable) {
+                          return;
+                        }
+
+                        field.onChange(value);
+                      }}
                     />
                   </FormControl>
                   <FormMessage />
@@ -167,13 +190,24 @@ export const AddHoldingButton = () => {
               name="growth"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>성장형(%)</FormLabel>
+                  <FormLabel className="flex items-center justify-between">
+                    <span>성장형 %</span>
+                    <span className="text-zinc-500">가능: {100 - growth}%</span>
+                  </FormLabel>
                   <FormControl>
                     <Input
                       type="number"
+                      max={100 - growth}
                       {...field}
-                      onChange={(event) => field.onChange(+event.target.value)}
-                      className="w-1/2"
+                      onChange={(event) => {
+                        const value = +event.target.value;
+
+                        if (value > 100 - growth) {
+                          return;
+                        }
+
+                        field.onChange(value);
+                      }}
                     />
                   </FormControl>
                   <FormMessage />
