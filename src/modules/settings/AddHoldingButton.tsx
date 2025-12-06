@@ -76,13 +76,17 @@ export const AddHoldingButton = () => {
     });
   };
 
+  const closeAndClearErrors = () => {
+    closeDialog();
+    form.clearErrors();
+  };
+
   return (
     <Dialog
       open={isDialogOpen}
       onOpenChange={(open) => {
         if (!open) {
-          closeDialog();
-          form.clearErrors();
+          closeAndClearErrors();
         }
       }}
     >
@@ -244,8 +248,12 @@ export const AddHoldingButton = () => {
                 </FormItem>
               )}
             />
-            <DialogFooter>
-              <Button onClick={closeDialog} type="button" variant="outline">
+            <DialogFooter className="mt-10">
+              <Button
+                onClick={closeAndClearErrors}
+                type="button"
+                variant="outline"
+              >
                 취소
               </Button>
               <Button type="submit" disabled={!form.formState.isValid}>
