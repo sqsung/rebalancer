@@ -1,3 +1,4 @@
+import { CATEGORIES } from "@/constants";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
@@ -50,4 +51,10 @@ export const getPercentagesByCategory = (
     growth,
     stable,
   };
+};
+
+export const checkIsValidCategory = (
+  subject: string,
+): subject is PortfolioCategory => {
+  return Object.keys(CATEGORIES).includes(subject);
 };

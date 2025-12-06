@@ -4,6 +4,7 @@ import { holdingSchema, type HoldingSchema } from "@/schema/holding.schema";
 import { usePortfolio } from "@/context/PortfolioContext";
 import { CATEGORIES } from "@/constants";
 import { useToggle } from "@/hooks";
+import { getPercentagesByCategory } from "@/utils";
 import { toast } from "sonner";
 import {
   Dialog,
@@ -27,7 +28,6 @@ import {
   SelectItem,
   SelectValue,
 } from "@/ui";
-import { getPercentagesByCategory } from "@/utils";
 
 export const AddHoldingButton = () => {
   const { portfolio, addHolding } = usePortfolio();

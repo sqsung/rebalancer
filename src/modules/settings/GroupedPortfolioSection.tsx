@@ -2,13 +2,11 @@ import { CATEGORIES } from "@/constants";
 import { usePortfolio } from "@/context/PortfolioContext";
 import { HoldingItem } from "@/modules/settings";
 import { EmptyFallback } from "@/modules/shared";
-import { getGroupedPortfolio, getPercentagesByCategory } from "@/utils";
-
-const checkIsValidCategory = (
-  subject: string,
-): subject is PortfolioCategory => {
-  return Object.keys(CATEGORIES).includes(subject);
-};
+import {
+  checkIsValidCategory,
+  getGroupedPortfolio,
+  getPercentagesByCategory,
+} from "@/utils";
 
 interface GroupedPortfolioSectionProps {
   category: string;
