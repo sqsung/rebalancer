@@ -36,7 +36,7 @@ export const CalculatorPage = () => {
 
   return (
     <OutletWrapper>
-      <div className="flex w-full overflow-hidden rounded-2xl bg-zinc-100">
+      <div className="flex h-full w-full overflow-hidden rounded-2xl bg-zinc-100">
         <Table className="flex h-full w-full flex-col">
           <TableHeader />
           <TableBody className="flex h-full flex-col bg-white">
