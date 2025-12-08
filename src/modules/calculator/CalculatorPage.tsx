@@ -9,13 +9,13 @@ import {
   DepositRow,
 } from "@/modules/calculator";
 import { getGroupedPortfolio, getNumberWithCommas } from "@/utils";
+import { SAVE_CUSTOM_EVENT } from "@/constants";
 
 export const CalculatorPage = () => {
-  const { portfolio } = usePortfolio();
+  const { portfolio, savePortfolio } = usePortfolio();
   const grouped = getGroupedPortfolio(portfolio);
 
   const [deposit, setDeposit] = useState(0);
-  const [isCalculated, setIsCalculated] = useState(false);
   const [values, setValues] = useState(() => {
     return Object.fromEntries(
       portfolio.map((holding) => [
@@ -25,11 +25,13 @@ export const CalculatorPage = () => {
     );
   });
 
-  const onValueChange = (key: string, value: PortfolioInputObject) => {
-    if (isCalculated) {
-      setIsCalculated(false);
-    }
+  const valuesRef = useRef(values);
 
+  useEffect(() => {
+    valuesRef.current = values;
+  }, [values]);
+
+  const onValueChange = (key: string, value: PortfolioInputObject) => {
     setValues((previous) => {
       const target = previous[key];
 
@@ -45,18 +47,8 @@ export const CalculatorPage = () => {
   };
 
   const onDepositChange = (newDeposit: number) => {
-    if (isCalculated) {
-      setIsCalculated(false);
-    }
-
     setDeposit(newDeposit);
   };
-
-  const valuesRef = useRef(values);
-
-  useEffect(() => {
-    valuesRef.current = values;
-  }, [values]);
 
   const total =
     Object.values(values).reduce((sum, state) => {
@@ -64,21 +56,30 @@ export const CalculatorPage = () => {
     }, 0) + deposit || 0;
 
   useEffect(() => {
-    const rebalance = () => {
-      const prices = Object.values(valuesRef.current).map(({ price }) => price);
+    const saveCurrentValues = () => {
+      const updated: Portfolio = [];
 
-      if (prices.includes(0)) {
-        alert("각 자산군의 가격을 설정해 주세요");
-        return;
+      for (const [name, value] of Object.entries(valuesRef.current)) {
+        const target = portfolio.find((holding) => holding.name === name);
+
+        if (!target) {
+          continue;
+        }
+
+        updated.push({
+          ...target,
+          ...value,
+        });
       }
 
-      setIsCalculated(true);
+      savePortfolio(updated);
     };
 
-    window.addEventListener("calculator:run", rebalance);
+    window.addEventListener(SAVE_CUSTOM_EVENT, saveCurrentValues);
 
-    return () => window.removeEventListener("calculator:run", rebalance);
-  }, []);
+    return () =>
+      window.removeEventListener(SAVE_CUSTOM_EVENT, saveCurrentValues);
+  }, [portfolio, savePortfolio]);
 
   const PORTFOLIO_BY_CATEGORY = [
     {
@@ -116,7 +117,6 @@ export const CalculatorPage = () => {
                     {group.holdings.map((holding) => (
                       <Fragment key={holding.name}>
                         <HoldingRow
-                          isCalculated={isCalculated}
                           holding={holding}
                           total={total}
                           value={values[holding.name]}
@@ -124,7 +124,6 @@ export const CalculatorPage = () => {
                         />
                         {isLast && isCash && (
                           <DepositRow
-                            isCalculated={isCalculated}
                             total={total}
                             deposit={deposit}
                             onDepositChange={onDepositChange}

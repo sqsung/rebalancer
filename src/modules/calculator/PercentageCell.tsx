@@ -1,20 +1,11 @@
 import { TableCell } from "@/modules/ui";
 import { cn, getNumberWithCommas, getTargetAmount } from "@/utils";
 
-const CellWrapper = ({ children }: WrapperComponent) => {
-  return (
-    <TableCell className="flex flex-1 flex-col items-center justify-center gap-1">
-      {children}
-    </TableCell>
-  );
-};
-
 interface PercentageCellProps {
   percentage: number;
   total: number;
   unit: string;
   value: PortfolioInputObject;
-  isCalculated: boolean;
 }
 
 export const PercentageCell = ({
@@ -22,17 +13,7 @@ export const PercentageCell = ({
   percentage,
   unit,
   value,
-  isCalculated,
 }: PercentageCellProps) => {
-  if (!isCalculated) {
-    return (
-      <CellWrapper>
-        <p>💡 {percentage}%</p>
-        <p className="text-xl font-bold text-zinc-300">(N/A)</p>
-      </CellWrapper>
-    );
-  }
-
   const targetAmount = Math.floor(getTargetAmount(total, percentage));
   const targetQty = value.price ? Math.floor(targetAmount / value.price) : 0;
   const differenceQty = Math.floor(targetQty - value.quantity);
@@ -51,9 +32,9 @@ export const PercentageCell = ({
   const goal = `> ${getNumberWithCommas(targetQty)}${unit}`;
 
   return (
-    <CellWrapper>
+    <TableCell className="flex flex-1 flex-col items-center justify-center gap-1">
       <p>
-        💡 {percentage}% {goal}
+        ✅ {percentage}% {goal}
       </p>
       <p
         className={cn(
@@ -66,6 +47,6 @@ export const PercentageCell = ({
         {getNumberWithCommas(differenceQty)}
         {unit}
       </p>
-    </CellWrapper>
+    </TableCell>
   );
 };

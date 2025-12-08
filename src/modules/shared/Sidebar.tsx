@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { RefreshCcw, Settings2 } from "lucide-react";
 import { Button } from "@/ui";
-import { PATHS } from "@/constants";
+import { PATHS, SAVE_CUSTOM_EVENT } from "@/constants";
 import clsx from "clsx";
 
 const BUTTONS = [
@@ -13,8 +13,8 @@ export const Sidebar = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
-  const onCalculate = () => {
-    window.dispatchEvent(new CustomEvent("calculator:run"));
+  const onSaveCurrentValues = () => {
+    window.dispatchEvent(new CustomEvent(SAVE_CUSTOM_EVENT));
   };
 
   return (
@@ -28,7 +28,12 @@ export const Sidebar = () => {
             <Button
               key={button.label}
               variant={isActive ? "default" : "ghost"}
-              onClick={() => navigate(button.path)}
+              onClick={() => {
+                if (button.path !== PATHS.calculator) {
+                  onSaveCurrentValues();
+                }
+                navigate(button.path);
+              }}
               className={clsx(
                 "w-52 justify-start",
                 isActive
@@ -43,10 +48,10 @@ export const Sidebar = () => {
         })}
         <Button
           disabled={pathname !== PATHS.calculator}
-          onClick={onCalculate}
+          onClick={onSaveCurrentValues}
           className="mt-auto w-52"
         >
-          계산하기
+          저장하기
         </Button>
       </div>
     </div>

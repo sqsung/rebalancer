@@ -2,7 +2,6 @@ import { Trash } from "lucide-react";
 import { usePortfolio } from "@/context/PortfolioContext";
 import { ConfirmDialog } from "@/modules/shared/ConfirmDialog";
 import { Button, Dialog, DialogTrigger } from "@/modules/ui";
-import { toast } from "sonner";
 import { cn } from "@/utils";
 import { useToggle } from "@/hooks";
 
@@ -16,13 +15,6 @@ const DeleteHoldingButton = ({ name }: DeleteHoldingButtonProps) => {
 
   const onDelete = () => {
     deleteHolding(name);
-
-    const id = toast("삭제했습니다", {
-      action: {
-        label: "확인",
-        onClick: () => toast.dismiss(id),
-      },
-    });
   };
 
   return (

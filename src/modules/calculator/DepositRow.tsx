@@ -5,14 +5,12 @@ import { getCurrentRatio, getNumberWithCommas } from "@/utils";
 interface DepositRowProps {
   deposit: number;
   total: number;
-  isCalculated: boolean;
   onDepositChange: (value: number) => void;
 }
 
 export const DepositRow = ({
   total,
   deposit,
-  isCalculated,
   onDepositChange,
 }: DepositRowProps) => {
   return (
@@ -46,7 +44,6 @@ export const DepositRow = ({
         percentage={0}
         unit="원"
         total={total}
-        isCalculated={isCalculated}
         value={{
           price: deposit,
           quantity: 0,
@@ -56,7 +53,6 @@ export const DepositRow = ({
         percentage={0}
         unit="원"
         total={total}
-        isCalculated={isCalculated}
         value={{
           price: deposit,
           quantity: 0,

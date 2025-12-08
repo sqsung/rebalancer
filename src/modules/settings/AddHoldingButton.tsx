@@ -2,10 +2,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, useWatch } from "react-hook-form";
 import { holdingSchema, type HoldingSchema } from "@/schema/holding.schema";
 import { usePortfolio } from "@/context/PortfolioContext";
-import { CATEGORIES } from "@/constants";
 import { useToggle } from "@/hooks";
 import { getPercentagesByCategory } from "@/utils";
-import { toast } from "sonner";
 import {
   Dialog,
   DialogTrigger,
@@ -59,21 +57,11 @@ export const AddHoldingButton = () => {
       ...values,
       description: values.description || "",
       price: 0,
-      holding: 0,
+      quantity: 0,
     });
 
     form.reset();
     closeDialog();
-
-    const categoryInKorean = CATEGORIES[values.category];
-
-    const id = toast(`새로운 ${categoryInKorean} 자산군 추가`, {
-      description: `${values.name} 안정형 ${values.stable}%, 성장형 ${values.growth}%`,
-      action: {
-        label: "확인",
-        onClick: () => toast.dismiss(id),
-      },
-    });
   };
 
   const closeAndClearErrors = () => {

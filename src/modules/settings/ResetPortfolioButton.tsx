@@ -2,7 +2,6 @@ import { usePortfolio } from "@/context/PortfolioContext";
 import { useToggle } from "@/hooks";
 import { ConfirmDialog } from "@/modules/shared/ConfirmDialog";
 import { Button, Dialog, DialogTrigger } from "@/ui";
-import { toast } from "sonner";
 
 export const ResetPortfolioButton = () => {
   const [isDialogOpen, [openDialog, closeDialog]] = useToggle();
@@ -11,13 +10,6 @@ export const ResetPortfolioButton = () => {
   const onReset = () => {
     resetPortfolio();
     closeDialog();
-
-    const id = toast("포트폴리오를 초기화 했습니다", {
-      action: {
-        label: "확인",
-        onClick: () => toast.dismiss(id),
-      },
-    });
   };
 
   return (

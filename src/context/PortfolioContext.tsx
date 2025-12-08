@@ -1,11 +1,13 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { DEFAULT_PORTFOLIO } from "@/constants";
+import { CATEGORIES, DEFAULT_PORTFOLIO } from "@/constants";
+import { toast } from "sonner";
 
 interface PortfolioContext {
   portfolio: Holding[];
   addHolding: (holding: Holding) => void;
   updateHolding: (name: string, holding: Holding) => void;
   deleteHolding: (name: string) => void;
+  savePortfolio: (portfolio: Portfolio) => void;
   resetPortfolio: () => void;
 }
 
@@ -14,6 +16,7 @@ const PortfolioContext = createContext<PortfolioContext>({
   addHolding: () => {},
   updateHolding: () => {},
   deleteHolding: () => {},
+  savePortfolio: () => {},
   resetPortfolio: () => {},
 });
 
@@ -35,6 +38,16 @@ export const PortfolioProvider = ({ children }: WrapperComponent) => {
 
   const addHolding = (holding: Holding) => {
     setPortfolio((previous) => [...previous, holding]);
+
+    const categoryInKorean = CATEGORIES[holding.category];
+
+    const id = toast(`새로운 ${categoryInKorean} 자산군 추가`, {
+      description: `${holding.name} 안정형 ${holding.stable}%, 성장형 ${holding.growth}%`,
+      action: {
+        label: "확인",
+        onClick: () => toast.dismiss(id),
+      },
+    });
   };
 
   const updateHolding = (name: string, holding: Holding) => {
@@ -52,10 +65,35 @@ export const PortfolioProvider = ({ children }: WrapperComponent) => {
     setPortfolio((previous) =>
       previous.filter((looped) => looped.name !== name),
     );
+
+    const id = toast("삭제했습니다", {
+      action: {
+        label: "확인",
+        onClick: () => toast.dismiss(id),
+      },
+    });
   };
 
   const resetPortfolio = () => {
     setPortfolio(DEFAULT_PORTFOLIO);
+
+    const id = toast("포트폴리오를 초기화 했습니다", {
+      action: {
+        label: "확인",
+        onClick: () => toast.dismiss(id),
+      },
+    });
+  };
+
+  const savePortfolio = (portfolio: Portfolio) => {
+    setPortfolio(portfolio);
+
+    const id = toast("현재 설정을 저장했습니다", {
+      action: {
+        label: "확인",
+        onClick: () => toast.dismiss(id),
+      },
+    });
   };
 
   return (
@@ -65,6 +103,7 @@ export const PortfolioProvider = ({ children }: WrapperComponent) => {
         addHolding,
         updateHolding,
         deleteHolding,
+        savePortfolio,
         resetPortfolio,
       }}
     >
