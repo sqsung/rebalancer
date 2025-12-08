@@ -81,7 +81,7 @@ export const PortfolioChartSection = () => {
             cursor={false}
             content={<ChartTooltipContent formatter={(value) => `${value}%`} />}
           />
-          <Bar dataKey="value" radius={8} />
+          <Bar dataKey="value" radius={12} />
         </BarChart>
       </ChartContainer>
     </section>

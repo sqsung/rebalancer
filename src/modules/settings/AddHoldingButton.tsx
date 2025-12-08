@@ -1,9 +1,9 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm, useWatch } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { holdingSchema, type HoldingSchema } from "@/schema/holding.schema";
 import { usePortfolio } from "@/context/PortfolioContext";
 import { useToggle } from "@/hooks";
-import { getPercentagesByCategory } from "@/utils";
+import { getTotalPercentages } from "@/utils";
 import {
   Dialog,
   DialogTrigger,
@@ -42,15 +42,7 @@ export const AddHoldingButton = () => {
     },
   });
 
-  const selectedCategory = useWatch({
-    control: form.control,
-    name: "category",
-  });
-
-  const { stable, growth } = getPercentagesByCategory(
-    portfolio,
-    selectedCategory,
-  );
+  const { stable, growth } = getTotalPercentages(portfolio);
 
   const onSubmit = (values: HoldingSchema) => {
     addHolding({

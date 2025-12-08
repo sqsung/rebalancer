@@ -25,13 +25,19 @@ export const getGroupedPortfolio = (portfolio: Portfolio) => {
   return grouped;
 };
 
-export const getTotalPercentage = (
-  portfolio: Portfolio,
-  type: PercentageType,
-) => {
-  return portfolio.reduce((total, holding) => {
-    return total + type === "growth" ? holding.growth : holding.stable;
-  }, 0);
+export const getTotalPercentages = (portfolio: Portfolio) => {
+  let growth = 0;
+  let stable = 0;
+
+  for (const holding of portfolio) {
+    growth += holding.growth;
+    stable += holding.stable;
+  }
+
+  return {
+    stable,
+    growth,
+  };
 };
 
 export const getPercentagesByCategory = (

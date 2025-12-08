@@ -1,5 +1,9 @@
 import { CATEGORIES } from "@/constants";
-import { GroupedPortfolioRow, SettingsHeader } from "@/modules/settings";
+import {
+  GroupedPortfolioRow,
+  SettingsHeader,
+  TotalPercentagesRow,
+} from "@/modules/settings";
 
 export const HoldingsSection = () => {
   return (
@@ -8,6 +12,7 @@ export const HoldingsSection = () => {
       {Object.keys(CATEGORIES).map((key, index) => (
         <GroupedPortfolioRow key={key + index} category={key} />
       ))}
+      <TotalPercentagesRow />
     </section>
   );
 };

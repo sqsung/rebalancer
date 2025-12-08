@@ -5,4 +5,5 @@ export * from "./HoldingItem";
 export * from "./HoldingsSection";
 export * from "./GroupedPortfolioRow";
 export * from "./PortfolioChartSection";
+export * from "./TotalPercentagesRow";
 export * from "./SettingsPage";
