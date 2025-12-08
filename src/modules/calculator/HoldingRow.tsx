@@ -1,15 +1,15 @@
 import { PercentageCell } from "@/modules/calculator/PercentageCell";
-import { Input, TableCell, TableRow as BaseTableRow } from "@/ui";
+import { Input, TableCell, TableRow } from "@/ui";
 import { cn } from "@/utils";
 
-interface RebalancingRowProps {
+interface HoldingRowProps {
   holding: Holding;
   className?: string;
 }
 
-export const TableRow = ({ holding, className = "" }: RebalancingRowProps) => {
+export const HoldingRow = ({ holding, className = "" }: HoldingRowProps) => {
   return (
-    <BaseTableRow className={cn("flex h-[150px] w-full", className)}>
+    <TableRow className={cn("flex h-[150px] w-full", className)}>
       <TableCell className="flex flex-1 flex-col items-center justify-center gap-1">
         <p className="text-xl font-bold">{holding.name}</p>
         <p className="text-sm text-zinc-700">{holding.description}</p>
@@ -32,6 +32,6 @@ export const TableRow = ({ holding, className = "" }: RebalancingRowProps) => {
 
       <PercentageCell percentage={holding.stable} />
       <PercentageCell percentage={holding.growth} />
-    </BaseTableRow>
+    </TableRow>
   );
 };

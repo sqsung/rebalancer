@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { usePortfolio } from "@/context/PortfolioContext";
 import { Table, TableBody, TableFooter } from "@/ui";
 import { OutletWrapper } from "@/modules/shared";
-import { TableRow, Classifier, TableHeader } from "@/modules/calculator";
+import { HoldingRow, Classifier, TableHeader } from "@/modules/calculator";
 import { getGroupedPortfolio } from "@/utils";
 
 export const CalculatorPage = () => {
@@ -49,7 +49,7 @@ export const CalculatorPage = () => {
                 />
                 <div className="flex flex-1 flex-col justify-center">
                   {item.holdings.map((holding) => (
-                    <TableRow key={holding.name} holding={holding} />
+                    <HoldingRow key={holding.name} holding={holding} />
                   ))}
                 </div>
               </div>

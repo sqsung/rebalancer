@@ -60,15 +60,6 @@ export const DEFAULT_PORTFOLIO: Portfolio = [
     price: 0,
     holding: 0,
   },
-  {
-    name: "예수금",
-    description: "(금액만 입력)",
-    category: "cash",
-    growth: 0,
-    stable: 0,
-    price: 0,
-    holding: 0,
-  },
 ];
 
 export const PATHS = {
