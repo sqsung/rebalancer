@@ -19,7 +19,7 @@ const chartConfig = {
 
 export const PortfolioChartSection = () => {
   const { portfolio } = usePortfolio();
-  const [mode, setMode] = useState<"growth" | "stable">("growth");
+  const [mode, setMode] = useState<PercentageType>("stable");
 
   const data = portfolio.map((holding) => ({
     name: holding.name,
@@ -45,8 +45,8 @@ export const PortfolioChartSection = () => {
           className="mb-8"
         >
           <TabsList>
-            <TabsTrigger value="growth">성장형</TabsTrigger>
             <TabsTrigger value="stable">안정형</TabsTrigger>
+            <TabsTrigger value="growth">성장형</TabsTrigger>
           </TabsList>
         </Tabs>
       </div>
