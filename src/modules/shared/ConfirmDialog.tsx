@@ -5,7 +5,7 @@ import {
   DialogTitle,
   DialogFooter,
   Button,
-} from "@/ui";
+} from "@/modules/ui";
 
 interface ConfirmDialogProps {
   title: string;

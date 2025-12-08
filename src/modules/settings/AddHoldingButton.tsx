@@ -1,5 +1,5 @@
 import { type HoldingSchema } from "@/schema";
-import { usePortfolio } from "@/context";
+import { usePortfolioContext } from "@/context";
 import { useToggle } from "@/hooks";
 import { HoldingForm } from "@/modules/settings";
 import {
@@ -10,10 +10,10 @@ import {
   DialogTitle,
   DialogDescription,
   Button,
-} from "@/ui";
+} from "@/modules/ui";
 
 export const AddHoldingButton = () => {
-  const { addHolding } = usePortfolio();
+  const { addHolding } = usePortfolioContext();
   const [isDialogOpen, [openDialog, closeDialog]] = useToggle();
 
   const onSubmit = (values: HoldingSchema) => {

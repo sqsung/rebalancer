@@ -1,4 +1,4 @@
-import { TableHeader as BaseTableHeader, TableHead } from "@/ui";
+import { TableHeader as BaseTableHeader, TableHead } from "@/modules/ui";
 
 export const TableHeader = () => {
   return (

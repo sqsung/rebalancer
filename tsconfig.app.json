@@ -27,8 +27,7 @@
     /* Import alias */
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"],
-      "@/ui": ["./src/modules/ui"]
+      "@/*": ["./src/*"]
     }
   },
   "include": ["src"]

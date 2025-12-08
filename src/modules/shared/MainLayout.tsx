@@ -1,6 +1,6 @@
 import { Sidebar } from "@/modules/shared";
 import { Outlet } from "react-router-dom";
-import { Toaster } from "@/ui";
+import { Toaster } from "@/modules/ui";
 
 export const MainLayout = () => {
   return (

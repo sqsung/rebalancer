@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { RefreshCcw, Settings2 } from "lucide-react";
-import { Button } from "@/ui";
+import { Button } from "@/modules/ui";
 import { PATHS, SAVE_CUSTOM_EVENT } from "@/constants";
 import clsx from "clsx";
 

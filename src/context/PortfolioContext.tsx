@@ -123,7 +123,7 @@ export const PortfolioProvider = ({ children }: WrapperComponent) => {
 };
 
 // eslint-disable-next-line react-refresh/only-export-components
-export const usePortfolio = () => {
+export const usePortfolioContext = () => {
   const context = useContext(PortfolioContext);
   return context;
 };

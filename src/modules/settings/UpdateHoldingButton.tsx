@@ -1,5 +1,5 @@
 import { type HoldingSchema } from "@/schema";
-import { usePortfolio } from "@/context";
+import { usePortfolioContext } from "@/context";
 import { useToggle } from "@/hooks";
 import { HoldingForm } from "@/modules/settings";
 import {
@@ -10,7 +10,7 @@ import {
   DialogTitle,
   DialogDescription,
   Button,
-} from "@/ui";
+} from "@/modules/ui";
 import { Pencil } from "lucide-react";
 
 interface UpdateHoldingButtonProps {
@@ -18,7 +18,7 @@ interface UpdateHoldingButtonProps {
 }
 
 export const UpdateHoldingButton = ({ holding }: UpdateHoldingButtonProps) => {
-  const { updateHolding } = usePortfolio();
+  const { updateHolding } = usePortfolioContext();
   const [isDialogOpen, [openDialog, closeDialog]] = useToggle();
 
   const onSubmit = (values: HoldingSchema) => {

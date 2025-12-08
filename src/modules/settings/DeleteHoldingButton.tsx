@@ -1,6 +1,6 @@
 import { Trash } from "lucide-react";
-import { usePortfolio } from "@/context/PortfolioContext";
-import { ConfirmDialog } from "@/modules/shared/ConfirmDialog";
+import { usePortfolioContext } from "@/context";
+import { ConfirmDialog } from "@/modules/shared";
 import { Button, Dialog, DialogTrigger } from "@/modules/ui";
 import { useToggle } from "@/hooks";
 
@@ -9,7 +9,7 @@ interface DeleteHoldingButtonProps {
 }
 
 export const DeleteHoldingButton = ({ name }: DeleteHoldingButtonProps) => {
-  const { deleteHolding } = usePortfolio();
+  const { deleteHolding } = usePortfolioContext();
   const [isDialogOpen, [openDialog, closeDialog]] = useToggle();
 
   const onDelete = () => {

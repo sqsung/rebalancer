@@ -1,5 +1,4 @@
-import { DeleteHoldingButton } from "@/modules/settings/DeleteHoldingButton";
-import { UpdateHoldingButton } from "@/modules/settings/UpdateHoldingButton";
+import { DeleteHoldingButton, UpdateHoldingButton } from "@/modules/settings";
 import { cn } from "@/utils";
 
 interface PercentageProps {

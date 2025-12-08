@@ -1,6 +1,6 @@
 import { Fragment, useEffect, useRef, useState } from "react";
-import { usePortfolio } from "@/context/PortfolioContext";
-import { Table, TableBody, TableFooter } from "@/ui";
+import { usePortfolioContext } from "@/context";
+import { Table, TableBody, TableFooter } from "@/modules/ui";
 import { OutletWrapper } from "@/modules/shared";
 import {
   HoldingRow,
@@ -12,7 +12,7 @@ import { getGroupedPortfolio, getNumberWithCommas } from "@/utils";
 import { SAVE_CUSTOM_EVENT } from "@/constants";
 
 export const CalculatorPage = () => {
-  const { portfolio, savePortfolio } = usePortfolio();
+  const { portfolio, savePortfolio } = usePortfolioContext();
   const grouped = getGroupedPortfolio(portfolio);
 
   const [deposit, setDeposit] = useState(0);

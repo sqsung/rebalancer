@@ -1,5 +1,5 @@
 import { CATEGORIES } from "@/constants";
-import { usePortfolio } from "@/context/PortfolioContext";
+import { usePortfolioContext } from "@/context";
 import { HoldingItem } from "@/modules/settings";
 import { EmptyFallback } from "@/modules/shared";
 import {
@@ -13,7 +13,7 @@ interface GroupedPortfolioRowProps {
 }
 
 export const GroupedPortfolioRow = ({ category }: GroupedPortfolioRowProps) => {
-  const { portfolio } = usePortfolio();
+  const { portfolio } = usePortfolioContext();
 
   if (!checkIsValidCategory(category)) {
     return null;

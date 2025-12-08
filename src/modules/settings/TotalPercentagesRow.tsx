@@ -1,8 +1,8 @@
-import { usePortfolio } from "@/context/PortfolioContext";
+import { usePortfolioContext } from "@/context";
 import { getTotalPercentages } from "@/utils";
 
 export const TotalPercentagesRow = () => {
-  const { portfolio } = usePortfolio();
+  const { portfolio } = usePortfolioContext();
   const { stable, growth } = getTotalPercentages(portfolio);
 
   return (

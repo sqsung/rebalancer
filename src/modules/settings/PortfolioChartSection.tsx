@@ -8,8 +8,8 @@ import {
   Tabs,
   TabsList,
   TabsTrigger,
-} from "@/ui";
-import { usePortfolio } from "@/context/PortfolioContext";
+} from "@/modules/ui";
+import { usePortfolioContext } from "@/context";
 
 const chartConfig = {
   value: {
@@ -18,7 +18,7 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 export const PortfolioChartSection = () => {
-  const { portfolio } = usePortfolio();
+  const { portfolio } = usePortfolioContext();
   const [mode, setMode] = useState<PercentageType>("stable");
 
   const data = portfolio.map((holding) => ({

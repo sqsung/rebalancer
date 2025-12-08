@@ -1,11 +1,11 @@
-import { usePortfolio } from "@/context/PortfolioContext";
+import { usePortfolioContext } from "@/context";
 import { useToggle } from "@/hooks";
-import { ConfirmDialog } from "@/modules/shared/ConfirmDialog";
-import { Button, Dialog, DialogTrigger } from "@/ui";
+import { ConfirmDialog } from "@/modules/shared";
+import { Button, Dialog, DialogTrigger } from "@/modules/ui";
 
 export const ResetPortfolioButton = () => {
   const [isDialogOpen, [openDialog, closeDialog]] = useToggle();
-  const { resetPortfolio } = usePortfolio();
+  const { resetPortfolio } = usePortfolioContext();
 
   const onReset = () => {
     resetPortfolio();

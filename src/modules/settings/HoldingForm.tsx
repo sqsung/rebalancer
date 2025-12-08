@@ -1,8 +1,8 @@
 import type { ChangeEvent } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, type ControllerRenderProps } from "react-hook-form";
-import { holdingSchema, type HoldingSchema } from "@/schema/holding.schema";
-import { usePortfolio } from "@/context/PortfolioContext";
+import { holdingSchema, type HoldingSchema } from "@/schema";
+import { usePortfolioContext } from "@/context";
 import { getTotalPercentages } from "@/utils";
 import {
   Button,
@@ -18,7 +18,7 @@ import {
   SelectContent,
   SelectItem,
   SelectValue,
-} from "@/ui";
+} from "@/modules/ui";
 
 interface HoldingFormProps {
   initialHolding?: Holding;
@@ -31,7 +31,7 @@ export const HoldingForm = ({
   onSubmit,
   onCancel,
 }: HoldingFormProps) => {
-  const { portfolio } = usePortfolio();
+  const { portfolio } = usePortfolioContext();
 
   const form = useForm<HoldingSchema>({
     resolver: zodResolver(holdingSchema),

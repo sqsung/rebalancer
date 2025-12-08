@@ -1,5 +1,5 @@
 import { PercentageCell } from "@/modules/calculator/PercentageCell";
-import { Input, TableCell, TableRow } from "@/ui";
+import { Input, TableCell, TableRow } from "@/modules/ui";
 import { getCurrentRatio, getNumberWithCommas } from "@/utils";
 import type { ChangeEvent } from "react";
 
