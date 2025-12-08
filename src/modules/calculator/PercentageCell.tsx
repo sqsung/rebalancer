@@ -41,8 +41,8 @@ export const PercentageCell = ({
         className={cn(
           "text-xl font-bold text-zinc-500",
           !hasPrice && "text-base font-normal",
-          status === "more" && "text-red-500",
-          status === "less" && "text-blue-500",
+          status === "more" && hasPrice && "text-red-500",
+          status === "less" && hasPrice && "text-blue-500",
         )}
       >
         {hasPrice

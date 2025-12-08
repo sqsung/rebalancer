@@ -8,13 +8,11 @@ import {
   getPercentagesByCategory,
 } from "@/utils";
 
-interface GroupedPortfolioSectionProps {
+interface GroupedPortfolioRowProps {
   category: string;
 }
 
-export const GroupedPortfolioSection = ({
-  category,
-}: GroupedPortfolioSectionProps) => {
+export const GroupedPortfolioRow = ({ category }: GroupedPortfolioRowProps) => {
   const { portfolio } = usePortfolio();
 
   if (!checkIsValidCategory(category)) {

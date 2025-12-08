@@ -2,5 +2,7 @@ export * from "./SettingsHeader";
 export * from "./AddHoldingButton";
 export * from "./ResetPortfolioButton";
 export * from "./HoldingItem";
-export * from "./GroupedPortfolioSection";
+export * from "./HoldingsSection";
+export * from "./GroupedPortfolioRow";
+export * from "./PortfolioChartSection";
 export * from "./SettingsPage";

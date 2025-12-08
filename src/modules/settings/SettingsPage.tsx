@@ -1,19 +1,11 @@
-import { CATEGORIES } from "@/constants";
 import { OutletWrapper } from "@/modules/shared/OutletWrapper";
-import { GroupedPortfolioSection, SettingsHeader } from "@/modules/settings";
+import { PortfolioChartSection, HoldingsSection } from "@/modules/settings";
 
 export const SettingsPage = () => {
   return (
-    <OutletWrapper>
-      <div className="flex h-full gap-3">
-        <ul className="flex flex-1 flex-col gap-3">
-          <SettingsHeader />
-          {Object.keys(CATEGORIES).map((key, index) => (
-            <GroupedPortfolioSection key={key + index} category={key} />
-          ))}
-        </ul>
-        <div className="sticky top-3 h-[calc(100vh-1.5rem)] flex-1 rounded-xl border border-zinc-300 bg-white"></div>
-      </div>
+    <OutletWrapper className="flex h-full gap-3">
+      <HoldingsSection />
+      <PortfolioChartSection />
     </OutletWrapper>
   );
 };

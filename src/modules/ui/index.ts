@@ -5,6 +5,7 @@ export * from "./Input";
 export * from "./Drawer";
 export * from "./Dialog";
 export * from "./Select";
+export * from "./Tabs";
 export * from "./Table";
 export * from "./Form";
 export * from "./Label";
