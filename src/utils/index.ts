@@ -58,3 +58,7 @@ export const checkIsValidCategory = (
 ): subject is PortfolioCategory => {
   return Object.keys(CATEGORIES).includes(subject);
 };
+
+export const getCurrentRatio = (value: number, total: number) => {
+  return ((value / total) * 100 || 0).toFixed(2);
+};

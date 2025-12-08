@@ -15,6 +15,10 @@ declare global {
 
   type PercentageType = "growth" | "stable";
 
+  type PortfolioInputField = "price" | "quantity";
+
+  type PortfolioInputObject = Record<PortfolioInputField, number>;
+
   interface Holding {
     name: string;
     description: string;

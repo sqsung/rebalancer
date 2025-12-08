@@ -25,13 +25,9 @@ export const CalculatorPage = () => {
 
   const [deposit, setDeposit] = useState(0);
 
-  const onValueChange = (
-    name: string,
-    field: "price" | "quantity",
-    value: number,
-  ) => {
+  const onValueChange = (key: string, value: PortfolioInputObject) => {
     setValues((previous) => {
-      const target = previous[name];
+      const target = previous[key];
 
       if (!target) {
         return previous;
@@ -39,10 +35,7 @@ export const CalculatorPage = () => {
 
       return {
         ...previous,
-        [name]: {
-          ...target,
-          [field]: value,
-        },
+        [key]: value,
       };
     });
   };
@@ -97,7 +90,12 @@ export const CalculatorPage = () => {
                   <div className="flex flex-1 flex-col justify-center">
                     {group.holdings.map((holding) => (
                       <Fragment key={holding.name}>
-                        <HoldingRow holding={holding} />
+                        <HoldingRow
+                          holding={holding}
+                          total={total}
+                          value={values[holding.name]}
+                          onValueChange={onValueChange}
+                        />
                         {isLast && isCash && (
                           <DepositRow
                             total={total}

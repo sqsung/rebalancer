@@ -1,6 +1,6 @@
 import { PercentageCell } from "@/modules/calculator/PercentageCell";
 import { Input, TableCell, TableRow } from "@/modules/ui";
-import { getNumberWithCommas } from "@/utils";
+import { getCurrentRatio, getNumberWithCommas } from "@/utils";
 
 interface DepositRowProps {
   deposit: number;
@@ -13,8 +13,6 @@ export const DepositRow = ({
   deposit,
   onDepositChange,
 }: DepositRowProps) => {
-  const currentRatio = ((deposit / total) * 100 || 0).toFixed(2);
-
   return (
     <TableRow className="flex h-[150px] w-full">
       <TableCell className="flex flex-1 flex-col items-center justify-center gap-1">
@@ -42,7 +40,7 @@ export const DepositRow = ({
       </TableCell>
 
       <TableCell className="flex flex-1 items-center justify-center">
-        <p className="text-xl font-bold">{currentRatio}%</p>
+        <p className="text-xl font-bold">{getCurrentRatio(deposit, total)}%</p>
       </TableCell>
 
       <PercentageCell percentage={0} unit="원" />
