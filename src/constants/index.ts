@@ -13,7 +13,7 @@ export const DEFAULT_PORTFOLIO: Portfolio = [
     growth: 30,
     stable: 20,
     price: 0,
-    holding: 0,
+    quantity: 0,
   },
   {
     name: "한국 주식",
@@ -22,7 +22,7 @@ export const DEFAULT_PORTFOLIO: Portfolio = [
     growth: 10,
     stable: 5,
     price: 0,
-    holding: 0,
+    quantity: 0,
   },
   {
     name: "금 (UH)",
@@ -31,7 +31,7 @@ export const DEFAULT_PORTFOLIO: Portfolio = [
     growth: 10,
     stable: 5,
     price: 0,
-    holding: 0,
+    quantity: 0,
   },
   {
     name: "리츠",
@@ -40,7 +40,7 @@ export const DEFAULT_PORTFOLIO: Portfolio = [
     growth: 30,
     stable: 20,
     price: 0,
-    holding: 0,
+    quantity: 0,
   },
   {
     name: "미국채 10년 (UH)",
@@ -49,7 +49,7 @@ export const DEFAULT_PORTFOLIO: Portfolio = [
     growth: 20,
     stable: 15,
     price: 0,
-    holding: 0,
+    quantity: 0,
   },
   {
     name: "현금성자산",
@@ -58,7 +58,7 @@ export const DEFAULT_PORTFOLIO: Portfolio = [
     growth: 0,
     stable: 35,
     price: 0,
-    holding: 0,
+    quantity: 0,
   },
 ];
 

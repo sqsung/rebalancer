@@ -22,7 +22,7 @@ declare global {
     growth: number;
     stable: number;
     price: number;
-    holding: number;
+    quantity: number;
   }
 
   type Portfolio = Holding[];
