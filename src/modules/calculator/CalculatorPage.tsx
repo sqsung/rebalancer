@@ -1,8 +1,13 @@
-import { useEffect } from "react";
+import { Fragment, useEffect } from "react";
 import { usePortfolio } from "@/context/PortfolioContext";
 import { Table, TableBody, TableFooter } from "@/ui";
 import { OutletWrapper } from "@/modules/shared";
-import { HoldingRow, Classifier, TableHeader } from "@/modules/calculator";
+import {
+  HoldingRow,
+  Classifier,
+  TableHeader,
+  DepositRow,
+} from "@/modules/calculator";
 import { getGroupedPortfolio } from "@/utils";
 
 export const CalculatorPage = () => {
@@ -40,20 +45,28 @@ export const CalculatorPage = () => {
         <Table className="flex h-full w-full flex-col">
           <TableHeader />
           <TableBody className="flex h-full flex-col bg-white">
-            {HOLDINGS.map((item, index) => (
-              <div className="flex flex-1">
-                <Classifier
-                  category={item.label}
-                  isEmpty={item.isEmpty}
-                  isLast={index + 1 === HOLDINGS.length}
-                />
-                <div className="flex flex-1 flex-col justify-center">
-                  {item.holdings.map((holding) => (
-                    <HoldingRow key={holding.name} holding={holding} />
-                  ))}
+            {HOLDINGS.map((item, index) => {
+              const isLast = index + 1 === HOLDINGS.length;
+              const isCash = item.holdings[0].category === "cash";
+
+              return (
+                <div className="flex flex-1">
+                  <Classifier
+                    category={item.label}
+                    isEmpty={item.isEmpty}
+                    isLast={isLast}
+                  />
+                  <div className="flex flex-1 flex-col justify-center">
+                    {item.holdings.map((holding) => (
+                      <Fragment key={holding.name}>
+                        <HoldingRow holding={holding} />
+                        {isLast && isCash && <DepositRow />}
+                      </Fragment>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
             <TableFooter className="h-[50px] border-0 bg-zinc-900"></TableFooter>
           </TableBody>
         </Table>

@@ -30,8 +30,8 @@ export const HoldingRow = ({ holding, className = "" }: HoldingRowProps) => {
         <p className="text-xl font-bold">77.88%</p>
       </TableCell>
 
-      <PercentageCell percentage={holding.stable} />
-      <PercentageCell percentage={holding.growth} />
+      <PercentageCell percentage={holding.stable} unit="주" />
+      <PercentageCell percentage={holding.growth} unit="주" />
     </TableRow>
   );
 };

@@ -2,9 +2,10 @@ import { TableCell } from "@/modules/ui";
 
 interface PercentageCellProps {
   percentage: number;
+  unit: string;
 }
 
-export const PercentageCell = ({ percentage }: PercentageCellProps) => {
+export const PercentageCell = ({ percentage, unit }: PercentageCellProps) => {
   const goal = "> 3,100주";
 
   return (
@@ -12,7 +13,7 @@ export const PercentageCell = ({ percentage }: PercentageCellProps) => {
       <p>
         {percentage}% {goal}
       </p>
-      <p className="text-xl font-bold">+2,191주</p>
+      <p className="text-xl font-bold">+2,191{unit}</p>
     </TableCell>
   );
 };
