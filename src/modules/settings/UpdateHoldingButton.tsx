@@ -52,10 +52,8 @@ export const UpdateHoldingButton = ({ holding }: UpdateHoldingButtonProps) => {
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>자산군 추가</DialogTitle>
-          <DialogDescription>
-            새로운 자산군에 대한 정보를 입력해 주세요.
-          </DialogDescription>
+          <DialogTitle>자산군 수정</DialogTitle>
+          <DialogDescription>수정할 정보를 입력해 주세요.</DialogDescription>
         </DialogHeader>
         <HoldingForm
           initialHolding={holding}
