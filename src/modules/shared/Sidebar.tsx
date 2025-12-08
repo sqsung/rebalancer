@@ -13,8 +13,14 @@ export const Sidebar = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
-  const onSaveCurrentValues = () => {
-    window.dispatchEvent(new CustomEvent(SAVE_CUSTOM_EVENT));
+  const saveCurrentValues = (isToastNeeded: boolean) => {
+    window.dispatchEvent(
+      new CustomEvent<SavePortfolioEvent>(SAVE_CUSTOM_EVENT, {
+        detail: {
+          isToastNeeded,
+        },
+      }),
+    );
   };
 
   return (
@@ -30,7 +36,7 @@ export const Sidebar = () => {
               variant={isActive ? "default" : "ghost"}
               onClick={() => {
                 if (button.path !== PATHS.calculator) {
-                  onSaveCurrentValues();
+                  saveCurrentValues(false);
                 }
                 navigate(button.path);
               }}
@@ -48,7 +54,7 @@ export const Sidebar = () => {
         })}
         <Button
           disabled={pathname !== PATHS.calculator}
-          onClick={onSaveCurrentValues}
+          onClick={() => saveCurrentValues(true)}
           className="mt-auto w-52"
         >
           저장하기

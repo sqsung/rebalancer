@@ -19,6 +19,10 @@ declare global {
 
   type PortfolioInputObject = Record<PortfolioInputField, number>;
 
+  interface SavePortfolioEvent {
+    isToastNeeded: boolean;
+  }
+
   interface Holding {
     name: string;
     description: string;

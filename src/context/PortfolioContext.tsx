@@ -7,7 +7,7 @@ interface PortfolioContext {
   addHolding: (holding: Holding) => void;
   updateHolding: (name: string, holding: Holding) => void;
   deleteHolding: (name: string) => void;
-  savePortfolio: (portfolio: Portfolio) => void;
+  savePortfolio: (portfolio: Portfolio, isToastNeeded: boolean) => void;
   resetPortfolio: () => void;
 }
 
@@ -85,15 +85,17 @@ export const PortfolioProvider = ({ children }: WrapperComponent) => {
     });
   };
 
-  const savePortfolio = (portfolio: Portfolio) => {
+  const savePortfolio = (portfolio: Portfolio, isToastNeeded: boolean) => {
     setPortfolio(portfolio);
 
-    const id = toast("현재 설정을 저장했습니다", {
-      action: {
-        label: "확인",
-        onClick: () => toast.dismiss(id),
-      },
-    });
+    if (isToastNeeded) {
+      const id = toast("현재 설정을 저장했습니다", {
+        action: {
+          label: "확인",
+          onClick: () => toast.dismiss(id),
+        },
+      });
+    }
   };
 
   return (

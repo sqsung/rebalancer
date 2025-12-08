@@ -56,8 +56,9 @@ export const CalculatorPage = () => {
     }, 0) + deposit || 0;
 
   useEffect(() => {
-    const saveCurrentValues = () => {
+    const onCustomSaveEvent = (event: CustomEvent<SavePortfolioEvent>) => {
       const updated: Portfolio = [];
+      const isToastNeeded = event.detail.isToastNeeded;
 
       for (const [name, value] of Object.entries(valuesRef.current)) {
         const target = portfolio.find((holding) => holding.name === name);
@@ -72,13 +73,20 @@ export const CalculatorPage = () => {
         });
       }
 
-      savePortfolio(updated);
+      savePortfolio(updated, isToastNeeded);
     };
 
-    window.addEventListener(SAVE_CUSTOM_EVENT, saveCurrentValues);
+    window.addEventListener(
+      SAVE_CUSTOM_EVENT,
+      onCustomSaveEvent as EventListener,
+    );
 
-    return () =>
-      window.removeEventListener(SAVE_CUSTOM_EVENT, saveCurrentValues);
+    return () => {
+      window.removeEventListener(
+        SAVE_CUSTOM_EVENT,
+        onCustomSaveEvent as EventListener,
+      );
+    };
   }, [portfolio, savePortfolio]);
 
   const PORTFOLIO_BY_CATEGORY = [

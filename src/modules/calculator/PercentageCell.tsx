@@ -15,7 +15,8 @@ export const PercentageCell = ({
   value,
 }: PercentageCellProps) => {
   const targetAmount = Math.floor(getTargetAmount(total, percentage));
-  const targetQty = value.price ? Math.floor(targetAmount / value.price) : 0;
+  const hasPrice = !!value.price;
+  const targetQty = hasPrice ? Math.floor(targetAmount / value.price) : 0;
   const differenceQty = Math.floor(targetQty - value.quantity);
 
   const status = (() => {
@@ -32,20 +33,23 @@ export const PercentageCell = ({
   const goal = `> ${getNumberWithCommas(targetQty)}${unit}`;
 
   return (
-    <TableCell className="flex flex-1 flex-col items-center justify-center gap-1">
-      <p>
-        ✅ {percentage}% {goal}
+    <TableCell className="flex flex-1 flex-col items-center justify-center gap-3">
+      <p className="rounded-full bg-zinc-700 px-3 py-1 text-white">
+        목표: {percentage}%{hasPrice && ` ${goal}`}
       </p>
       <p
         className={cn(
           "text-xl font-bold text-zinc-500",
+          !hasPrice && "text-base font-normal",
           status === "more" && "text-red-500",
           status === "less" && "text-blue-500",
         )}
       >
-        {status === "more" ? "+" : ""}
-        {getNumberWithCommas(differenceQty)}
-        {unit}
+        {hasPrice
+          ? (status === "more" ? "+" : "") +
+            getNumberWithCommas(differenceQty) +
+            unit
+          : "(가격 설정 필요)"}
       </p>
     </TableCell>
   );
