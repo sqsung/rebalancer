@@ -1,24 +1,27 @@
-import { Fragment, useEffect, useRef, useState } from "react";
+import {
+  Fragment,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { usePortfolioContext } from "@/context";
-import { Table, TableBody, TableFooter } from "@/modules/ui";
+import { Table, TableBody } from "@/modules/ui";
 import { OutletWrapper } from "@/modules/shared";
 import {
   HoldingRow,
+  TableFooter,
   Classifier,
   TableHeader,
   DepositRow,
 } from "@/modules/calculator";
-import {
-  checkIsValidCategory,
-  cn,
-  getGroupedPortfolio,
-  getNumberWithCommas,
-} from "@/utils";
+import { checkIsValidCategory, cn, getGroupedPortfolio } from "@/utils";
 import { SAVE_CUSTOM_EVENT } from "@/constants";
 
 export const CalculatorPage = () => {
   const { portfolio, savePortfolio } = usePortfolioContext();
-  const grouped = getGroupedPortfolio(portfolio);
+  const grouped = useMemo(() => getGroupedPortfolio(portfolio), [portfolio]);
 
   const [deposit, setDeposit] = useState(0);
   const [values, setValues] = useState(() => {
@@ -36,24 +39,27 @@ export const CalculatorPage = () => {
     valuesRef.current = values;
   }, [values]);
 
-  const onValueChange = (key: string, value: PortfolioInputObject) => {
-    setValues((previous) => {
-      const target = previous[key];
+  const onValueChange = useCallback(
+    (key: string, value: PortfolioInputObject) => {
+      setValues((previous) => {
+        const target = previous[key];
 
-      if (!target) {
-        return previous;
-      }
+        if (!target) {
+          return previous;
+        }
 
-      return {
-        ...previous,
-        [key]: value,
-      };
-    });
-  };
+        return {
+          ...previous,
+          [key]: value,
+        };
+      });
+    },
+    [],
+  );
 
-  const onDepositChange = (newDeposit: number) => {
+  const onDepositChange = useCallback((newDeposit: number) => {
     setDeposit(newDeposit);
-  };
+  }, []);
 
   const total =
     Object.values(values).reduce((sum, state) => {
@@ -142,60 +148,10 @@ export const CalculatorPage = () => {
                 </div>
               );
             })}
-            <TableFooter className="flex h-[50px] items-center border-0 bg-zinc-900 text-white">
-              <p className="flex w-[100px] items-center justify-center">합계</p>
-              <div className="flex-1" />
-              <p className="flex flex-1 justify-end gap-3 text-lg">
-                {getNumberWithCommas(total)}원
-              </p>
-              <div className="flex-1" />
-              <div className="flex-1" />
-              <div className="flex-1" />
-            </TableFooter>
           </TableBody>
+          <TableFooter total={total} />
         </Table>
       </div>
     </OutletWrapper>
   );
 };
-
-//   const
-
-//   const isLast = index + 1 === PORTFOLIO_BY_CATEGORY.length;
-//   const isGroupEmpty = !group.holdings?.[0];
-
-//   if (isGroupEmpty) {
-//     return null;
-//   }
-
-//   const isCash = group.holdings[0].category === "cash";
-
-//   return (
-//     <div className="flex flex-1">
-//       <Classifier
-//         category={group.label}
-//         isEmpty={group.isEmpty}
-//         isLast={isLast}
-//       />
-//       <div className="flex flex-1 flex-col justify-center">
-//         {group.holdings.map((holding) => (
-//           <Fragment key={holding.name}>
-//             <HoldingRow
-//               holding={holding}
-//               total={total}
-//               value={values[holding.name]}
-//               onValueChange={onValueChange}
-//             />
-//             {isLast && isCash && (
-//               <DepositRow
-//                 total={total}
-//                 deposit={deposit}
-//                 onDepositChange={onDepositChange}
-//               />
-//             )}
-//           </Fragment>
-//         ))}
-//       </div>
-//     </div>
-//   );
-// })}
