@@ -14,12 +14,7 @@ export const TotalContextProvider = ({ children }: WrapperComponent) => {
   const [total, setTotal] = useState<number | null>(null);
 
   return (
-    <TotalContext.Provider
-      value={{
-        total,
-        onTotalChange: setTotal,
-      }}
-    >
+    <TotalContext.Provider value={{ total, onTotalChange: setTotal }}>
       {children}
     </TotalContext.Provider>
   );

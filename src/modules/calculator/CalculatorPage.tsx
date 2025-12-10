@@ -1,11 +1,4 @@
-import {
-  Fragment,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import { Fragment, useCallback, useMemo, useState } from "react";
 import { usePortfolioContext } from "@/context";
 import { TableBody } from "@/modules/ui";
 import {
@@ -15,10 +8,10 @@ import {
   RebalancerTable,
 } from "@/modules/calculator";
 import { checkIsValidCategory, cn, getGroupedPortfolio } from "@/utils";
-import { SAVE_CUSTOM_EVENT } from "@/constants";
 
 export const CalculatorPage = () => {
-  const { portfolio, savePortfolio } = usePortfolioContext();
+  const { portfolio } = usePortfolioContext();
+
   const grouped = useMemo(() => getGroupedPortfolio(portfolio), [portfolio]);
 
   const [deposit, setDeposit] = useState(0);
@@ -30,12 +23,6 @@ export const CalculatorPage = () => {
       ]),
     );
   });
-
-  const valuesRef = useRef(values);
-
-  useEffect(() => {
-    valuesRef.current = values;
-  }, [values]);
 
   const onValueChange = useCallback(
     (key: string, value: PortfolioInputObject) => {
@@ -58,45 +45,6 @@ export const CalculatorPage = () => {
   const onDepositChange = useCallback((newDeposit: number) => {
     setDeposit(newDeposit);
   }, []);
-
-  const total =
-    Object.values(values).reduce((sum, state) => {
-      return sum + state.price * state.quantity;
-    }, 0) + deposit || 0;
-
-  useEffect(() => {
-    const onCustomSaveEvent = (event: CustomEvent<SavePortfolioEvent>) => {
-      const updated: Portfolio = [];
-      const isToastNeeded = event.detail.isToastNeeded;
-
-      for (const [name, value] of Object.entries(valuesRef.current)) {
-        const target = portfolio.find((holding) => holding.name === name);
-
-        if (!target) {
-          continue;
-        }
-
-        updated.push({
-          ...target,
-          ...value,
-        });
-      }
-
-      savePortfolio(updated, isToastNeeded);
-    };
-
-    window.addEventListener(
-      SAVE_CUSTOM_EVENT,
-      onCustomSaveEvent as EventListener,
-    );
-
-    return () => {
-      window.removeEventListener(
-        SAVE_CUSTOM_EVENT,
-        onCustomSaveEvent as EventListener,
-      );
-    };
-  }, [portfolio, savePortfolio]);
 
   return (
     <RebalancerTable>
@@ -125,13 +73,11 @@ export const CalculatorPage = () => {
                     <Fragment key={holding.name}>
                       <HoldingRow
                         holding={holding}
-                        total={total}
                         value={values[holding.name]}
                         onValueChange={onValueChange}
                       />
                       {isLast && isCash && (
                         <DepositRow
-                          total={total}
                           deposit={deposit}
                           onDepositChange={onDepositChange}
                         />

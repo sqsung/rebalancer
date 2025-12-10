@@ -1,20 +1,20 @@
+import { useTotalContext } from "@/context";
 import { TableCell } from "@/modules/ui";
 import { cn, getNumberWithCommas, getTargetAmount } from "@/utils";
 
 interface PercentageCellProps {
   percentage: number;
-  total: number;
   unit: string;
   value: PortfolioInputObject;
 }
 
 export const PercentageCell = ({
-  total,
   percentage,
   unit,
   value,
 }: PercentageCellProps) => {
-  const targetAmount = Math.floor(getTargetAmount(total, percentage));
+  const { total } = useTotalContext();
+  const targetAmount = Math.floor(getTargetAmount(total ?? 0, percentage));
   const hasPrice = !!value.price;
   const targetQty = hasPrice ? Math.floor(targetAmount / value.price) : 0;
   const differenceQty = Math.floor(targetQty - value.quantity);

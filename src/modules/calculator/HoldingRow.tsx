@@ -1,3 +1,4 @@
+import { useTotalContext } from "@/context";
 import { PercentageCell } from "@/modules/calculator/PercentageCell";
 import { Input, TableCell, TableRow } from "@/modules/ui";
 import { getCurrentRatio, getNumberWithCommas } from "@/utils";
@@ -5,13 +6,14 @@ import { memo, type ChangeEvent } from "react";
 
 interface HoldingRowProps {
   holding: Holding;
-  total: number;
   value: PortfolioInputObject;
   onValueChange: (name: string, value: PortfolioInputObject) => void;
 }
 
 export const HoldingRow = memo(
-  ({ holding, value, total, onValueChange }: HoldingRowProps) => {
+  ({ holding, value, onValueChange }: HoldingRowProps) => {
+    const { total } = useTotalContext();
+
     const onChange = (
       event: ChangeEvent<HTMLInputElement>,
       field: PortfolioInputField,
@@ -61,22 +63,12 @@ export const HoldingRow = memo(
 
         <TableCell className="flex flex-1 items-center justify-center">
           <p className="text-xl font-bold">
-            {getCurrentRatio(rowAmount, total)}%
+            {getCurrentRatio(rowAmount, total ?? 0)}%
           </p>
         </TableCell>
 
-        <PercentageCell
-          unit="주"
-          total={total}
-          percentage={holding.stable}
-          value={value}
-        />
-        <PercentageCell
-          unit="주"
-          total={total}
-          percentage={holding.growth}
-          value={value}
-        />
+        <PercentageCell unit="주" percentage={holding.stable} value={value} />
+        <PercentageCell unit="주" percentage={holding.growth} value={value} />
       </TableRow>
     );
   },
