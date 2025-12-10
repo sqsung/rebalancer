@@ -67,4 +67,4 @@ export const PATHS = {
   settings: "/settings",
 } as const;
 
-export const SAVE_CUSTOM_EVENT = "rebalance:save";
+export const CALCULATE_CUSTOM_EVENT = "rebalance:calculate";

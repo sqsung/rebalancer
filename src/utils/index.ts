@@ -66,6 +66,10 @@ export const checkIsValidCategory = (
 };
 
 export const getCurrentRatio = (value: number, total: number) => {
+  if (!total) {
+    return 0;
+  }
+
   return ((value / total) * 100 || 0).toFixed(2);
 };
 

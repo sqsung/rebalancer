@@ -1,29 +1,30 @@
 import { CATEGORIES } from "@/constants";
 import { cn } from "@/utils";
+import { memo } from "react";
 
 interface ClassifierProps {
-  category: (typeof CATEGORIES)[PortfolioCategory];
+  category: PortfolioCategory;
   isEmpty: boolean;
-  isLast?: boolean;
+  className?: string;
 }
 
-export const Classifier = ({
-  category,
-  isEmpty,
-  isLast = false,
-}: ClassifierProps) => {
-  if (isEmpty) {
-    return null;
-  }
+export const Classifier = memo(
+  ({ category, isEmpty, className = "" }: ClassifierProps) => {
+    if (isEmpty) {
+      return null;
+    }
 
-  return (
-    <span
-      className={cn(
-        "flex w-[100px] shrink-0 items-center justify-center border-b border-zinc-700 bg-zinc-900 text-sm font-bold text-white",
-        isLast && "border-0",
-      )}
-    >
-      {category}
-    </span>
-  );
-};
+    const categoryInKorean = CATEGORIES[category];
+
+    return (
+      <span
+        className={cn(
+          "flex w-[100px] shrink-0 items-center justify-center border-b border-zinc-700 bg-zinc-900 text-sm font-bold text-white",
+          className,
+        )}
+      >
+        {categoryInKorean}
+      </span>
+    );
+  },
+);
