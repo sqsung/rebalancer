@@ -42,22 +42,8 @@ export const DepositRow = memo(
             {getCurrentRatio(deposit, total ?? 0)}%
           </p>
         </TableCell>
-        <PercentageCell
-          percentage={0}
-          unit="원"
-          value={{
-            price: deposit,
-            quantity: 0,
-          }}
-        />
-        <PercentageCell
-          percentage={0}
-          unit="원"
-          value={{
-            price: deposit,
-            quantity: 0,
-          }}
-        />
+        <PercentageCell percentage={0} unit="원" price={deposit} quantity={0} />
+        <PercentageCell percentage={0} unit="원" price={deposit} quantity={0} />
       </TableRow>
     );
   },
