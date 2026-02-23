@@ -19,6 +19,7 @@ import {
   SelectItem,
   SelectValue,
 } from "@/modules/ui";
+import { toast } from "sonner";
 
 interface HoldingFormProps {
   initialHolding?: Holding;
@@ -31,6 +32,7 @@ export const HoldingForm = ({
   onSubmit,
   onCancel,
 }: HoldingFormProps) => {
+  const isUpdating = !!initialHolding;
   const { portfolio } = usePortfolioContext();
 
   const form = useForm<HoldingSchema>({
@@ -72,17 +74,29 @@ export const HoldingForm = ({
     }
 
     const isGrowth = type === "growth";
-    const max = 100 - (isGrowth ? growth : stable);
+    const max = isGrowth ? allowedGrowth : allowedStable;
     const clamped = Math.min(numeric, max);
 
     if (numeric > max) {
-      alert(
-        `${isGrowth ? "성장형" : "안정형"}은 현재 ${max}%까지 설정 가능합니다`,
+      toast(
+        `${isGrowth ? "성장형" : "안정형"}은 최대 ${max}%까지 입력 가능합니다`,
+        {
+          action: {
+            label: "확인",
+            onClick: () => toast.dismiss(),
+          },
+        },
       );
     }
 
     field.onChange(clamped);
   };
+
+  const otherGrowth = growth - (initialHolding?.growth ?? 0);
+  const otherStable = stable - (initialHolding?.stable ?? 0);
+
+  const allowedGrowth = isUpdating ? 100 - otherGrowth : 100 - growth;
+  const allowedStable = isUpdating ? 100 - otherStable : 100 - stable;
 
   return (
     <Form {...form}>
@@ -150,12 +164,12 @@ export const HoldingForm = ({
             <FormItem>
               <FormLabel className="flex items-center justify-between">
                 <span>안정형 %</span>
-                <span className="text-zinc-500">가능: {100 - stable}%</span>
+                <span className="text-zinc-500">가능: {allowedStable}%</span>
               </FormLabel>
               <FormControl>
                 <Input
                   inputMode="numeric"
-                  max={100 - stable}
+                  max={allowedStable}
                   {...field}
                   onChange={(event) => onPercentageChange(event, field)}
                 />
@@ -171,12 +185,12 @@ export const HoldingForm = ({
             <FormItem>
               <FormLabel className="flex items-center justify-between">
                 <span>성장형 %</span>
-                <span className="text-zinc-500">가능: {100 - growth}%</span>
+                <span className="text-zinc-500">가능: {allowedGrowth}%</span>
               </FormLabel>
               <FormControl>
                 <Input
                   inputMode="numeric"
-                  max={100 - growth}
+                  max={allowedGrowth}
                   {...field}
                   onChange={(event) => onPercentageChange(event, field)}
                 />
