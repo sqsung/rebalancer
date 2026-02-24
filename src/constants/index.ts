@@ -7,7 +7,7 @@ export const CATEGORIES = {
 
 export const DEFAULT_PORTFOLIO: Portfolio = [
   {
-    name: "미국 주식 (UH)",
+    name: "미국주식 (UH)",
     description: "(TIGER 미국배당다우존스)",
     category: "stocks",
     growth: 35,
@@ -17,7 +17,7 @@ export const DEFAULT_PORTFOLIO: Portfolio = [
   },
   {
     name: "인도주식 / 원자재",
-    description: "(TIGER 인도니프티 50 / WT 원유)",
+    description: "(TIGER 인도니프티50 / WTI 원유)",
     category: "stocks",
     growth: 10,
     stable: 10,
@@ -52,8 +52,8 @@ export const DEFAULT_PORTFOLIO: Portfolio = [
     quantity: 0,
   },
   {
-    name: "현금성자산",
-    description: "(ACE 미국달러SOFRA금리(합성))",
+    name: "현금성자산 (UH)",
+    description: "(ACE 미국달러SOFR금리(합성))",
     category: "cash",
     growth: 15,
     stable: 25,
